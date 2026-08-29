@@ -1,4 +1,6 @@
 :root {
+    color-scheme: light;
+
     /* Color Palette */
     --bg-primary: #FFFFFF;
     --bg-cream: #E6DDD3;
@@ -31,6 +33,9 @@
 }
 
 html {
+    color-scheme: light;
+    background-color: var(--bg-primary);
+    color: var(--text-main);
     scroll-behavior: smooth;
     scroll-padding-top: 105px;
 }
@@ -48,12 +53,22 @@ footer[id],
 }
 
 body {
+    color-scheme: light;
     font-family: var(--font-body);
     color: var(--text-main);
     background-color: var(--bg-primary);
     line-height: 1.6;
     font-size: 16px;
     -webkit-font-smoothing: antialiased;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+    color-scheme: light;
+    font-family: inherit;
 }
 
 img {
@@ -126,6 +141,7 @@ h1, h2, h3, h4 {
     transition: all 0.3s ease;
     cursor: pointer;
     text-align: center;
+    color-scheme: light;
 }
 
 .btn-primary {
@@ -1199,6 +1215,10 @@ h1, h2, h3, h4 {
 }
 
 /* Blog */
+.blog {
+    background-color: var(--bg-primary);
+}
+
 .blog-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -1396,7 +1416,8 @@ h1, h2, h3, h4 {
 /* Contact & Footer */
 .site-footer {
     padding: var(--spacing-xl) 0 2.5rem;
-    background: #fff;
+    background-color: #FFFFFF;
+    color: var(--text-main);
     border-top: 1px solid var(--bg-cream);
 }
 
@@ -1444,7 +1465,7 @@ a.contact-item:hover {
 
 .contact-form-wrapper {
     flex: 1.1;
-    background: var(--bg-cream);
+    background-color: var(--bg-cream);
     padding: 2.25rem;
     border-radius: var(--border-radius);
     box-shadow: 0 4px 20px rgba(0,0,0,0.03);
@@ -1510,6 +1531,7 @@ a.contact-item:hover {
     accent-color: var(--color-dark-green);
     cursor: pointer;
     margin: 0;
+    background-color: #FFFFFF;
 }
 
 input[type="text"],
@@ -1522,12 +1544,22 @@ textarea {
     border-radius: 8px;
     font-family: var(--font-body);
     font-size: 0.95rem;
-    background: #fff;
+    background-color: #FFFFFF;
+    color: var(--text-main);
+    color-scheme: light;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: var(--color-sage);
+    opacity: 0.8;
 }
 
 input:focus, textarea:focus {
     outline: none;
+    background-color: #FFFFFF;
+    color: var(--text-main);
     border-color: var(--color-dark-green);
     box-shadow: 0 0 0 3px rgba(30, 58, 30, 0.12);
 }
