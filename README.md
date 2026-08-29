@@ -1,11 +1,12 @@
-# tbh-strategy-web
+# TBH Strategy
 
-Landing page for TBH Strategy — social media management agency in Tralee, 
-Co. Kerry, Ireland.
+Landing page for TBH Strategy — social media management and digital marketing agency based in Tralee, Co. Kerry, Ireland.
 
-## Status
-🚧 In development — demo/prototype phase
+## Overview
+TBH Strategy helps small Kerry businesses grow their social media presence, connect with local audiences, and turn followers into paying customers through tailored strategies and purposeful content creation.
 
-## Stack
-- Frontend: TBD (built with Antigravity)
-- Hosting: Cloudflare Pages
+## Tech Stack
+- HTML5 (Semantic)
+- CSS3 (Custom Design System, Flexbox, CSS Grid)
+- JavaScript (Vanilla)
+- Google Fonts: Playfair Display & Inter
