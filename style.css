@@ -1086,14 +1086,18 @@ h1, h2, h3, h4 {
 .google-rating-pill {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
     gap: 0.6rem;
     background: #FFFFFF;
-    padding: 0.4rem 1.25rem;
+    padding: 0.45rem 1.25rem;
     border-radius: 30px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.05);
     border: 1px solid var(--border-color);
     margin-bottom: 2rem;
     font-size: 0.9rem;
+    max-width: 100%;
+    text-align: center;
 }
 
 .google-logo {
