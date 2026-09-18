@@ -529,6 +529,21 @@ h1, h2, h3, h4 {
     line-height: 1.65;
 }
 
+.hero .btn-primary {
+    background-color: var(--color-brand-primary);
+    color: var(--text-main);
+    border: 2px solid var(--color-brand-primary);
+    font-weight: 600;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.hero .btn-primary:hover {
+    background-color: color-mix(in srgb, var(--color-brand-primary) 85%, #FFFFFF);
+    border-color: color-mix(in srgb, var(--color-brand-primary) 85%, #FFFFFF);
+    color: var(--text-main);
+    box-shadow: 0 6px 22px rgba(0, 0, 0, 0.4);
+}
+
 /* Marquee Strip */
 .marquee-strip {
     background-color: var(--color-brand-primary);
