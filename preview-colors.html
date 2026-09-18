@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TBH Strategy - Comparador de Color de Marca</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #1a1a1a;
+            color: #fff;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        /* Top Navigation Bar */
+        .preview-header {
+            background: #242424;
+            border-bottom: 1px solid #333;
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+            z-index: 100;
+        }
+        .header-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #e0e0e0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .active-badge {
+            font-size: 0.75rem;
+            font-family: monospace;
+            padding: 2px 8px;
+            border-radius: 4px;
+            background: #333;
+            color: #fff;
+            border: 1px solid #555;
+        }
+        /* Color Swatches Container */
+        .swatches {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            overflow-x: auto;
+            padding: 4px 0;
+            -webkit-overflow-scrolling: touch;
+        }
+        .swatch-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: #2d2d2d;
+            border: 2px solid transparent;
+            color: #ddd;
+            padding: 6px 10px;
+            border-radius: 20px;
+            font-size: 0.78rem;
+            font-weight: 500;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+        }
+        .swatch-btn:hover {
+            background: #3a3a3a;
+            color: #fff;
+            transform: translateY(-1px);
+        }
+        .swatch-btn.active {
+            border-color: #fff;
+            background: #404040;
+            color: #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+        }
+        .swatch-circle {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.25);
+            display: inline-block;
+        }
+        /* Viewport Mode Switcher */
+        .device-toggle {
+            display: flex;
+            gap: 4px;
+            background: #1a1a1a;
+            padding: 3px;
+            border-radius: 8px;
+            border: 1px solid #333;
+        }
+        .device-btn {
+            background: transparent;
+            border: none;
+            color: #888;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        .device-btn.active {
+            background: #333;
+            color: #fff;
+        }
+        /* Frame Container */
+        .frame-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: stretch;
+            background: #121212;
+            overflow: hidden;
+            position: relative;
+        }
+        iframe {
+            border: none;
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            transition: width 0.3s ease;
+        }
+        .frame-container.mobile-mode iframe {
+            width: 414px;
+            max-width: 100%;
+            box-shadow: 0 0 30px rgba(0,0,0,0.6);
+            border-left: 1px solid #333;
+            border-right: 1px solid #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="preview-header">
+        <div class="header-title">
+            TBH Palette Test: <span id="active-name" class="active-badge">Actual (#a3b18a)</span>
+        </div>
+
+        <div class="swatches">
+            <button class="swatch-btn" onclick="setColor('#1E3A1E', 'Antiguo (#1E3A1E)')">
+                <span class="swatch-circle" style="background: #1E3A1E;"></span>
+                Antiguo (#1E3A1E)
+            </button>
+            <button class="swatch-btn" onclick="setColor('#ccd5ae', '1. #ccd5ae')">
+                <span class="swatch-circle" style="background: #ccd5ae;"></span>
+                1. #ccd5ae
+            </button>
+            <button class="swatch-btn active" onclick="setColor('#a3b18a', 'Actual (#a3b18a)')">
+                <span class="swatch-circle" style="background: #a3b18a;"></span>
+                Actual (#a3b18a)
+            </button>
+            <button class="swatch-btn" onclick="setColor('#97a97c', '3. #97a97c')">
+                <span class="swatch-circle" style="background: #97a97c;"></span>
+                3. #97a97c
+            </button>
+            <button class="swatch-btn" onclick="setColor('#87986a', '4. #87986a')">
+                <span class="swatch-circle" style="background: #87986a;"></span>
+                4. #87986a
+            </button>
+            <button class="swatch-btn" onclick="setColor('#718355', '5. #718355')">
+                <span class="swatch-circle" style="background: #718355;"></span>
+                5. #718355
+            </button>
+            <button class="swatch-btn" onclick="setColor('#797d62', '6. #797d62')">
+                <span class="swatch-circle" style="background: #797d62;"></span>
+                6. #797d62
+            </button>
+            <button class="swatch-btn" onclick="setColor('#9b9b7a', '7. #9b9b7a')">
+                <span class="swatch-circle" style="background: #9b9b7a;"></span>
+                7. #9b9b7a
+            </button>
+        </div>
+
+        <div class="device-toggle">
+            <button id="btn-desktop" class="device-btn active" onclick="setDevice('desktop')">Escritorio</button>
+            <button id="btn-mobile" class="device-btn" onclick="setDevice('mobile')">Móvil (390px)</button>
+        </div>
+    </div>
+
+    <div id="frame-container" class="frame-container">
+        <iframe id="site-frame" src="index.html"></iframe>
+    </div>
+
+    <script>
+        const frame = document.getElementById('site-frame');
+        const container = document.getElementById('frame-container');
+        const badge = document.getElementById('active-name');
+        let currentColor = '#a3b18a';
+
+        function applyColor() {
+            try {
+                if (frame.contentDocument && frame.contentDocument.documentElement) {
+                    frame.contentDocument.documentElement.style.setProperty('--color-brand-primary', currentColor);
+                }
+            } catch (e) {
+                console.warn('Cannot inject into iframe across domains:', e);
+            }
+        }
+
+        frame.addEventListener('load', applyColor);
+
+        function setColor(hex, label) {
+            currentColor = hex;
+            applyColor();
+            badge.textContent = label;
+            document.querySelectorAll('.swatch-btn').forEach(btn => {
+                if (btn.textContent.includes(hex)) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+        }
+
+        function setDevice(mode) {
+            if (mode === 'mobile') {
+                container.classList.add('mobile-mode');
+                document.getElementById('btn-mobile').classList.add('active');
+                document.getElementById('btn-desktop').classList.remove('active');
+            } else {
+                container.classList.remove('mobile-mode');
+                document.getElementById('btn-desktop').classList.add('active');
+                document.getElementById('btn-mobile').classList.remove('active');
+            }
+        }
+    </script>
+</body>
+</html>
