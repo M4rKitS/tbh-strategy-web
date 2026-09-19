@@ -308,8 +308,7 @@
         const rejectBtn = document.getElementById('cookie-reject-btn');
 
         function loadGoogleAnalytics() {
-            const GA_ID = 'GA_MEASUREMENT_ID'; 
-            if (GA_ID === 'GA_MEASUREMENT_ID') return;
+            const GA_ID = 'G-MGLNE90KP5'; 
 
             if (!document.getElementById('ga-script')) {
                 const script = document.createElement('script');
@@ -322,6 +321,7 @@
                 function gtag(){dataLayer.push(arguments);}
                 gtag('js', new Date());
                 gtag('config', GA_ID, { 'anonymize_ip': true });
+                console.info('[TBH Analytics] Google Analytics script loaded.');
             }
         }
 

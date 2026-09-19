@@ -524,16 +524,7 @@
         const rejectBtn = document.getElementById('cookie-reject-btn');
 
         function loadGoogleAnalytics() {
-            /*
-             * Google Analytics (GA4) loader:
-             * Replace 'GA_MEASUREMENT_ID' with your actual Measurement ID (e.g. 'G-XXXXXXXXXX')
-             */
-            const GA_ID = 'GA_MEASUREMENT_ID'; 
-            
-            if (GA_ID === 'GA_MEASUREMENT_ID') {
-                console.info('[TBH Analytics] Consent granted. Ready for real GA_MEASUREMENT_ID.');
-                return;
-            }
+            const GA_ID = 'G-MGLNE90KP5'; 
 
             if (!document.getElementById('ga-script')) {
                 const script = document.createElement('script');
