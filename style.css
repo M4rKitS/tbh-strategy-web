@@ -1666,6 +1666,61 @@ input:focus, textarea:focus {
     box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-brand-primary) 20%, transparent);
 }
 
+/* Contact Form Status Feedback */
+.form-status-message {
+    margin-bottom: 1.25rem;
+    padding: 1rem 1.25rem;
+    border-radius: 8px;
+    font-size: 0.925rem;
+    line-height: 1.5;
+    animation: formStatusFadeIn 0.3s ease;
+}
+
+@keyframes formStatusFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-6px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.form-status-message.is-success {
+    background-color: #EDF4EC;
+    border: 1px solid #C2D8BF;
+    color: #244823;
+}
+
+.form-status-message.is-error {
+    background-color: #FDF0EB;
+    border: 1px solid #F0BEAA;
+    color: #8A3014;
+}
+
+.form-status-message .status-subtext {
+    display: block;
+    margin-top: 0.35rem;
+    font-size: 0.85rem;
+    opacity: 0.85;
+}
+
+.form-status-message a {
+    color: inherit;
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+.form-status-message a:hover {
+    opacity: 0.85;
+}
+
+button[type="submit"]:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
 .footer-bottom {
     display: flex;
     flex-direction: column;

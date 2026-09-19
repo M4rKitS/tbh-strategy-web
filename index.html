@@ -22,6 +22,16 @@
     <link rel="icon" type="image/png" sizes="512x512" href="assets/favicon/android-chrome-512x512.png">
     
     <link rel="stylesheet" href="style.css">
+    
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            emailjs.init({
+                publicKey: "zf7Fyb6geD-Hglzi_"
+            });
+        })();
+    </script>
 </head>
 <body>
     <!-- Header -->
@@ -426,7 +436,7 @@
                 </div>
                 
                 <div class="contact-form-wrapper">
-                    <form class="contact-form" action="mailto:hello@tbhstrategy.com" method="post" enctype="text/plain">
+                    <form class="contact-form" id="contact-form">
                         <div class="form-row-2">
                             <div class="form-group">
                                 <label for="first-name">First Name <span class="req">*</span></label>
@@ -472,7 +482,9 @@
                             <textarea id="business-info" name="business_info" rows="4" placeholder="Tell me a bit about what you do, your current social media, and your goals..." required></textarea>
                         </div>
 
-                        <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                        <div id="contact-form-status" class="form-status-message" style="display: none;" role="status" aria-live="polite"></div>
+
+                        <button type="submit" id="contact-submit-btn" class="btn btn-primary btn-block">Submit</button>
                     </form>
                 </div>
             </div>
@@ -769,6 +781,87 @@
                 closeMobileNav();
             });
         });
+
+        // Contact Form Submission Handler with EmailJS
+        const contactForm = document.getElementById('contact-form');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                const submitBtn = document.getElementById('contact-submit-btn');
+                const statusDiv = document.getElementById('contact-form-status');
+                const originalBtnText = submitBtn ? submitBtn.textContent : 'Submit';
+
+                const firstName = (document.getElementById('first-name')?.value || '').trim();
+                const lastName = (document.getElementById('last-name')?.value || '').trim();
+                const fullName = [firstName, lastName].filter(Boolean).join(' ');
+                const email = (document.getElementById('email')?.value || '').trim();
+                const phone = (document.getElementById('phone')?.value || '').trim();
+                const businessInfo = (document.getElementById('business-info')?.value || '').trim();
+
+                const checkedServices = Array.from(contactForm.querySelectorAll('input[name="services"]:checked'))
+                    .map(function(el) { return el.value; });
+
+                const subject = checkedServices.length > 0
+                    ? `New Inquiry: ${checkedServices.join(', ')}`
+                    : `New Website Inquiry from ${fullName || 'Visitor'}`;
+
+                let messageContent = businessInfo;
+                const extraLines = [];
+                if (phone) extraLines.push(`Phone: ${phone}`);
+                if (checkedServices.length > 0) extraLines.push(`Services of interest: ${checkedServices.join(', ')}`);
+                if (extraLines.length > 0) {
+                    messageContent += `\n\n---\nAdditional Details:\n${extraLines.join('\n')}`;
+                }
+
+                const templateParams = {
+                    from_name: fullName,
+                    from_email: email,
+                    subject: subject,
+                    message: messageContent,
+                    phone: phone,
+                    services: checkedServices.join(', ')
+                };
+
+                if (submitBtn) {
+                    submitBtn.disabled = true;
+                    submitBtn.textContent = 'Sending...';
+                }
+
+                if (statusDiv) {
+                    statusDiv.style.display = 'none';
+                    statusDiv.className = 'form-status-message';
+                    statusDiv.innerHTML = '';
+                }
+
+                emailjs.send('service_xe7ucan', 'template_it1ef3a', templateParams)
+                    .then(function(response) {
+                        console.info('[TBH Contact] EmailJS Success:', response.status, response.text);
+                        contactForm.reset();
+                        if (statusDiv) {
+                            statusDiv.className = 'form-status-message is-success';
+                            statusDiv.innerHTML = '<strong>Thank you!</strong> Your message has been sent, we\'ll get back to you soon.';
+                            statusDiv.style.display = 'block';
+                            statusDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                        }
+                    })
+                    .catch(function(error) {
+                        console.error('[TBH Contact] EmailJS Error:', error);
+                        if (statusDiv) {
+                            statusDiv.className = 'form-status-message is-error';
+                            statusDiv.innerHTML = 'Something went wrong sending your message. Please write directly to <a href="mailto:hello@tbhstrategy.com">hello@tbhstrategy.com</a>.';
+                            statusDiv.style.display = 'block';
+                            statusDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                        }
+                    })
+                    .finally(function() {
+                        if (submitBtn) {
+                            submitBtn.disabled = false;
+                            submitBtn.textContent = originalBtnText;
+                        }
+                    });
+            });
+        }
     })();
     </script>
 </body>
